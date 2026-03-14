@@ -89,7 +89,9 @@ export const RoomViewFollowing = as<'div', RoomViewFollowingProps>(
               <Text size="T300" truncate>
                 {names.length === 1 && (
                   <>
-                    <Text as="strong">{names[0]}</Text>
+                    <Text as="strong" size="Inherit">
+                      {names[0]}
+                    </Text>
                     <Text as="span" size="Inherit" priority="300">
                       {' is following the conversation.'}
                     </Text>
@@ -97,11 +99,15 @@ export const RoomViewFollowing = as<'div', RoomViewFollowingProps>(
                 )}
                 {names.length === 2 && (
                   <>
-                    <Text as="strong">{names[0]}</Text>
+                    <Text as="strong" size="Inherit">
+                      {names[0]}
+                    </Text>
                     <Text as="span" size="Inherit" priority="300">
                       {' and '}
                     </Text>
-                    <Text as="strong">{names[1]}</Text>
+                    <Text as="strong" size="Inherit">
+                      {names[1]}
+                    </Text>
                     <Text as="span" size="Inherit" priority="300">
                       {' are following the conversation.'}
                     </Text>
@@ -109,15 +115,21 @@ export const RoomViewFollowing = as<'div', RoomViewFollowingProps>(
                 )}
                 {names.length === 3 && (
                   <>
-                    <Text as="strong">{names[0]}</Text>
+                    <Text as="strong" size="Inherit">
+                      {names[0]}
+                    </Text>
                     <Text as="span" size="Inherit" priority="300">
                       {', '}
                     </Text>
-                    <Text as="strong">{names[1]}</Text>
+                    <Text as="strong" size="Inherit">
+                      {names[1]}
+                    </Text>
                     <Text as="span" size="Inherit" priority="300">
                       {' and '}
                     </Text>
-                    <Text as="strong">{names[2]}</Text>
+                    <Text as="strong" size="Inherit">
+                      {names[2]}
+                    </Text>
                     <Text as="span" size="Inherit" priority="300">
                       {' are following the conversation.'}
                     </Text>
@@ -125,19 +137,27 @@ export const RoomViewFollowing = as<'div', RoomViewFollowingProps>(
                 )}
                 {names.length > 3 && (
                   <>
-                    <Text as="strong">{names[0]}</Text>
+                    <Text as="strong" size="Inherit">
+                      {names[0]}
+                    </Text>
                     <Text as="span" size="Inherit" priority="300">
                       {', '}
                     </Text>
-                    <Text as="strong">{names[1]}</Text>
+                    <Text as="strong" size="Inherit">
+                      {names[1]}
+                    </Text>
                     <Text as="span" size="Inherit" priority="300">
                       {', '}
                     </Text>
-                    <Text as="strong">{names[2]}</Text>
+                    <Text as="strong" size="Inherit">
+                      {names[2]}
+                    </Text>
                     <Text as="span" size="Inherit" priority="300">
                       {' and '}
                     </Text>
-                    <Text as="strong">{names.length - 3} others</Text>
+                    <Text as="strong" size="Inherit">
+                      {names.length - 3} others
+                    </Text>
                     <Text as="span" size="Inherit" priority="300">
                       {' are following the conversation.'}
                     </Text>
