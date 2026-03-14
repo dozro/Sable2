@@ -1,5 +1,30 @@
 # Sable Client Changelog
 
+## 1.8.0 (2026-03-14)
+
+### Features
+
+* added error page making it easier to report errors when they occur in the field <!-- commit:a6ad473 -->
+* Show group DM participants with triangle avatar layout. Group DMs now display up to 3 member avatars in a triangle formation (most recent sender on top), with bot filtering and DM count badge support. <!-- commit:c6bb5ed -->
+* Add internal debug logging system with viewer UI, realtime updates, and instrumentation across sync, timeline, and messaging <!-- commit:fb80eab -->
+* Add thread support with side panel, browser, unread badges, and cross-device sync <!-- commit:e617ce0 -->
+* Optimize sliding sync with progressive loading and improved timeline management <!-- commit:a38b519 -->
+
+### Fixes
+
+* added settings toggle in (General>Messages) to enable showing a tombstone for deleted messages without having to set all hidden events to visible <!-- commit:478b12f -->
+* added for compatibility sake the forward meta data as defined in MSC2723 <!-- commit:9f65957 -->
+* disabling quick add for encrypted sticker, this mitigates the issue of being unable to use quick to add encrypted sticker <!-- commit:a96b595 -->
+* Fix badge positioning and alignment across all sidebar components <!-- commit:e1c31a2 -->
+* Fix bubble layout messages overflowing off the screen with embeds/images. <!-- commit:91febe0 -->
+* Fixed unhandled promise rejections in media blob cache and added automatic retry for chunk loading failures after deployments. <!-- commit:f67abc0 -->
+* Fix notification handling with null safety and improved logic <!-- commit:bd31de7 -->
+* Fix cosmetics tab crashing if global/room/space pronouns weren't already set. <!-- commit:dc0dc57 -->
+* Fix reaction clicks, zoom persistence, and empty message rendering <!-- commit:51abbba -->
+* Add width limit to notification banners <!-- commit:c811733 -->
+* removed forwarding of beeper's per message profile, as this might confuse clients <!-- commit:2e2e1ae -->
+* Handles a middle-click on the url preview card thumbnail image by downloading the full image from the homeserver proxy through a fetch request and opening received blob in the new tab <!-- commit:02aa299 -->
+
 ## 1.7.0 (2026-03-12)
 
 ### Features
