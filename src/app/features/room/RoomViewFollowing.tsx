@@ -89,7 +89,7 @@ export const RoomViewFollowing = as<'div', RoomViewFollowingProps>(
               <Text size="T300" truncate>
                 {names.length === 1 && (
                   <>
-                    <b>{names[0]}</b>
+                    <Text as="strong">{names[0]}</Text>
                     <Text as="span" size="Inherit" priority="300">
                       {' is following the conversation.'}
                     </Text>
@@ -97,11 +97,11 @@ export const RoomViewFollowing = as<'div', RoomViewFollowingProps>(
                 )}
                 {names.length === 2 && (
                   <>
-                    <b>{names[0]}</b>
+                    <Text as="strong">{names[0]}</Text>
                     <Text as="span" size="Inherit" priority="300">
                       {' and '}
                     </Text>
-                    <b>{names[1]}</b>
+                    <Text as="strong">{names[1]}</Text>
                     <Text as="span" size="Inherit" priority="300">
                       {' are following the conversation.'}
                     </Text>
@@ -109,15 +109,15 @@ export const RoomViewFollowing = as<'div', RoomViewFollowingProps>(
                 )}
                 {names.length === 3 && (
                   <>
-                    <b>{names[0]}</b>
+                    <Text as="strong">{names[0]}</Text>
                     <Text as="span" size="Inherit" priority="300">
                       {', '}
                     </Text>
-                    <b>{names[1]}</b>
+                    <Text as="strong">{names[1]}</Text>
                     <Text as="span" size="Inherit" priority="300">
                       {' and '}
                     </Text>
-                    <b>{names[2]}</b>
+                    <Text as="strong">{names[2]}</Text>
                     <Text as="span" size="Inherit" priority="300">
                       {' are following the conversation.'}
                     </Text>
@@ -125,19 +125,19 @@ export const RoomViewFollowing = as<'div', RoomViewFollowingProps>(
                 )}
                 {names.length > 3 && (
                   <>
-                    <b>{names[0]}</b>
+                    <Text as="strong">{names[0]}</Text>
                     <Text as="span" size="Inherit" priority="300">
                       {', '}
                     </Text>
-                    <b>{names[1]}</b>
+                    <Text as="strong">{names[1]}</Text>
                     <Text as="span" size="Inherit" priority="300">
                       {', '}
                     </Text>
-                    <b>{names[2]}</b>
+                    <Text as="strong">{names[2]}</Text>
                     <Text as="span" size="Inherit" priority="300">
                       {' and '}
                     </Text>
-                    <b>{names.length - 3} others</b>
+                    <Text as="strong">{names.length - 3} others</Text>
                     <Text as="span" size="Inherit" priority="300">
                       {' are following the conversation.'}
                     </Text>
