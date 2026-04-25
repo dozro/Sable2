@@ -33,6 +33,7 @@ import { createRoomEncryptionState } from '$components/create-room';
 import { parsePronounsInput } from '$utils/pronouns';
 import { sendFeedback } from '$utils/sendFeedbackToUser';
 import { PKitCommandMessageHandler } from '$plugins/pluralkit-handler/PKitCommandMessageHandler';
+import { getFromCommandRegistry } from '$plugins/commandHandling/commandRegistry';
 import { useRoomNavigate } from './useRoomNavigate';
 import { enrichWidgetUrl } from './useRoomWidgets';
 import { useUserProfile } from './useUserProfile';
@@ -42,6 +43,7 @@ import {
   PerMessageProfile,
   setCurrentlyUsedPerMessageProfileIdForRoom,
 } from './usePerMessageProfile';
+import { loadBuildInCommands } from '$plugins/commandHandling/builtin/builtInCommands';
 
 export const SHRUG = String.raw`¯\_(ツ)_/¯`;
 export const TABLEFLIP = '(╯°□°)╯︵ ┻━┻';
@@ -290,6 +292,8 @@ export const useCommands = (mx: MatrixClient, room: Room): CommandRecord => {
   const pkitcmdHandler = useMemo(() => new PKitCommandMessageHandler(mx, room), [mx, room]);
   const profile = useUserProfile(mx.getSafeUserId());
   const openBugReport = useOpenBugReportModal();
+
+  loadBuildInCommands();
 
   const commands: CommandRecord = useMemo(
     () => ({
@@ -808,43 +812,10 @@ export const useCommands = (mx: MatrixClient, room: Room): CommandRecord => {
       },
       [Command.Color]: {
         name: Command.Color,
-        description: 'Set a room-specific color. Example: /color #ff00ff | /color reset',
+        description: getFromCommandRegistry('color').getCommandDefinition().description,
         exe: async (payload) => {
-          const input = payload.trim().toLowerCase();
-          const userId = mx.getSafeUserId();
-
-          try {
-            if (input === 'reset' || input === 'clear') {
-              await mx.sendStateEvent(
-                room.roomId,
-                StateEvent.RoomCosmeticsColor as any,
-                {},
-                userId
-              );
-              sendFeedback('Room color has been reset.', room, userId);
-              return;
-            }
-
-            if (/^#[0-9A-F]{6}$/i.test(input)) {
-              await mx.sendStateEvent(
-                room.roomId,
-                StateEvent.RoomCosmeticsColor as any,
-                { color: input },
-                userId
-              );
-              sendFeedback(`Room color set to ${input}.`, room, userId);
-            } else {
-              sendFeedback('Invalid format. Use #RRGGBB.', room, userId);
-            }
-          } catch (e: any) {
-            if (e.errcode === 'M_FORBIDDEN') {
-              sendFeedback(
-                'Permission Denied. An admin must enable "Room Colors" in Settings > Cosmetics in app.sable.moe or another supported client.',
-                room,
-                userId
-              );
-            }
-          }
+          const cmd = getFromCommandRegistry('color');
+          await cmd.execute({ mx, room });
         },
       },
       [Command.SColor]: {
@@ -852,49 +823,8 @@ export const useCommands = (mx: MatrixClient, room: Room): CommandRecord => {
         description:
           'Set your color for the current Space. Example: /scolor #ff00ff | /scolor reset',
         exe: async (payload) => {
-          const input = payload.trim().toLowerCase();
-          const userId = mx.getSafeUserId();
-
-          const parents = room
-            .getLiveTimeline()
-            .getState(EventTimeline.FORWARDS)
-            ?.getStateEvents(StateEvent.SpaceParent);
-
-          const targetSpaceId =
-            parents && parents.length > 0 ? parents[0].getStateKey() : room.roomId;
-
-          try {
-            if (input === 'reset' || input === 'clear') {
-              await mx.sendStateEvent(
-                targetSpaceId as any,
-                StateEvent.RoomCosmeticsColor as any,
-                {},
-                userId
-              );
-              sendFeedback('Global space color reset.', room, userId);
-              return;
-            }
-
-            if (/^#[0-9A-F]{6}$/i.test(input)) {
-              await mx.sendStateEvent(
-                targetSpaceId as any,
-                StateEvent.RoomCosmeticsColor as any,
-                { color: input },
-                userId
-              );
-              sendFeedback(`Global space color set to ${input}.`, room, userId);
-            } else {
-              sendFeedback('Invalid format. Use #RRGGBB.', room, userId);
-            }
-          } catch (e: any) {
-            if (e.errcode === 'M_FORBIDDEN') {
-              sendFeedback(
-                'Permission Denied. An admin must enable "Space-Wide Colors" in Settings > Cosmetics in app.sable.moe or another supported client.',
-                room,
-                userId
-              );
-            }
-          }
+          const cmd = getFromCommandRegistry('scolor');
+          await cmd.execute({ mx, room });
         },
       },
       [Command.Font]: {
