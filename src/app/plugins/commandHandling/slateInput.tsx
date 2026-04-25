@@ -1,12 +1,16 @@
 import React from 'react';
 import { AbstractCommand } from './AbstractCommand';
 import * as css from './slateInput.css';
+import { generateShortId } from '$utils/shortIdGen';
 
 type InputElementForParams = {
   attributeType?: string;
   helpText?: string;
   placeHolder?: string;
   required: boolean;
+  pattern?: string;
+  id?: string;
+  name?: string;
   onChange: (val: any) => void;
 };
 
@@ -15,9 +19,12 @@ function InputElementFor({
   helpText,
   placeHolder,
   onChange,
+  pattern,
   required = false,
+  id,
+  name,
 }: Readonly<InputElementForParams>) {
-  if (attributeType === undefined || attributeType === 'string' || attributeType === 'custom') {
+  if (attributeType === undefined || attributeType === 'string') {
     return (
       <input
         type="text"
@@ -27,6 +34,24 @@ function InputElementFor({
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
           onChange(e.target.value);
         }}
+        id={id}
+        name={name}
+      />
+    );
+  }
+  if (attributeType === 'custom') {
+    return (
+      <input
+        type="text"
+        title={helpText}
+        placeholder={placeHolder}
+        required={required}
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+          onChange(e.target.value);
+        }}
+        pattern={pattern}
+        id={id}
+        name={name}
       />
     );
   }
@@ -40,6 +65,8 @@ function InputElementFor({
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
           onChange(e.target.value);
         }}
+        id={id}
+        name={name}
       />
     );
   }
@@ -50,9 +77,15 @@ function InputElementFor({
           onChange(e.target.selectedOptions[0].value === 'true');
         }}
         required={required}
+        id={id}
+        name={name}
       >
-        <option value="false">false</option>
-        <option value="true">true</option>
+        <option value="false" id={`${id}-false`}>
+          false
+        </option>
+        <option value="true" id={`${id}-true`}>
+          true
+        </option>
       </select>
     );
   }
@@ -84,6 +117,9 @@ export function SlateInputForCommand({
               command.updateArgValue(attr.id, value);
             }}
             required={attr.required}
+            pattern={attr.format}
+            id={generateShortId(5)}
+            name={generateShortId(5)}
           />
         </span>
       ))}

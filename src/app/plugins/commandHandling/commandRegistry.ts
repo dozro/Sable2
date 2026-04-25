@@ -11,14 +11,17 @@ export enum CommandRegistry {
   Custom,
 }
 
-export function addToCommandRegistry(commandList: Array<AbstractCommand>, registry: CommandRegistry): void {
+export function addToCommandRegistry(
+  commandList: Array<AbstractCommand>,
+  registry: CommandRegistry
+): void {
   commandList.forEach((cmd) => {
     if (registry === CommandRegistry.BuiltIn)
       builtInCommandRegistry.set(cmd.getCommandDefinition().id, cmd);
     else if (registry === CommandRegistry.Room)
       roomCommandRegistry.set(cmd.getCommandDefinition().id, cmd);
     else if (registry === CommandRegistry.Custom)
-      customCommandRegistry.set(cmd.getCommandDefinition().id, cmd)
+      customCommandRegistry.set(cmd.getCommandDefinition().id, cmd);
   });
 }
 
@@ -29,9 +32,11 @@ export function clearRoomCommandRegistry(): void {
 export function getFromCommandRegistry(id: string): AbstractCommand {
   if (customCommandRegistry.has(id)) {
     return customCommandRegistry.get(id)!;
-  } else if(roomCommandRegistry.has(id)){
+  }
+  if (roomCommandRegistry.has(id)) {
     return roomCommandRegistry.get(id)!;
-  } else if(builtInCommandRegistry.has(id)){
+  }
+  if (builtInCommandRegistry.has(id)) {
     return builtInCommandRegistry.get(id)!;
   }
   throw new Error('Command not found');

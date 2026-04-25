@@ -369,7 +369,14 @@
                 {
                     "id": "font",
                     "description": "the font you want to have",
-                    "required": true
+                    "required": false
+                },
+                {
+                    "id": "reset",
+                    "description": "whether to reset the font",
+                    "required": false,
+                    "type": "boolean",
+                    "defaultValue": "false"
                 }
             ],
             "category": "cosmetics"
@@ -385,6 +392,13 @@
                     "id": "font",
                     "description": "the font you want to have",
                     "required": true
+                },
+                {
+                    "id": "reset",
+                    "description": "whether to reset the font",
+                    "required": false,
+                    "type": "boolean",
+                    "defaultValue": "false"
                 }
             ],
             "category": "cosmetics"
@@ -490,7 +504,20 @@
             "requiredPermission": "custom",
             "customPermission": "PLACEHOLDER",
             "builtIn": true,
-            "category": "cosmetics"
+            "category": "cosmetics",
+            "attributes": [
+                {
+                    "id": "pronouns",
+                    "required": false,
+                    "type": "string",
+                    "exampleValue": "en:they/them, de:sie/ihr"
+                },
+                {
+                    "id": "reset",
+                    "required": false,
+                    "type": "boolean"
+                }
+            ]
         },
         {
             "id": "spronoun",
@@ -498,7 +525,20 @@
             "requiredPermission": "custom",
             "customPermission": "PLACEHOLDER",
             "builtIn": true,
-            "category": "cosmetics"
+            "category": "cosmetics",
+            "attributes": [
+                {
+                    "id": "pronouns",
+                    "required": false,
+                    "type": "string",
+                    "exampleValue": "en:they/them, de:sie/ihr"
+                },
+                {
+                    "id": "reset",
+                    "required": false,
+                    "type": "boolean"
+                }
+            ]
         },
         {
             "id": "rainbow",
@@ -572,7 +612,8 @@
                     "id": "msg",
                     "description": "the html encoded message",
                     "required": true,
-                    "type": "string"
+                    "type": "string",
+                    "exampleValue": "<span data-mx-color=\"#ff0000\">Red</span>"
                 }
             ],
             "category": "misc"
@@ -665,13 +706,44 @@
             "id": "location",
             "builtIn": true,
             "category": "misc",
-            "description": "share a specified location"
+            "description": "share a specified location",
+            "attributes": [
+                {
+                    "id": "latitude",
+                    "type": "custom",
+                    "format": "^[-+]?([1-8]?\\d(\\.\\d+)?|90(\\.0+)?)$",
+                    "exampleValue": "43.959971",
+                    "required": true
+                },
+                {
+                    "id": "longitude",
+                    "type": "custom",
+                    "format": "^\\s*[-+]?(180(\\.0+)?|((1[0-7]\\d)|([1-9]?\\d))(\\.\\d+)?)$",
+                    "exampleValue": "-59.790623",
+                    "required": true
+                },
+                {
+                    "id": "altitude",
+                    "type": "string",
+                    "exampleValue": "0",
+                    "required": false
+                }
+            ]
         },
         {
             "id": "sharemylocation",
             "builtIn": true,
             "category": "misc",
-            "description": "share your current location"
+            "description": "Share current location. Requires your browser to have location permissions.",
+            "attributes": [
+                {
+                    "id": "accurate",
+                    "defaultValue": "false",
+                    "description": "enabling the high accuracy option",
+                    "type": "boolean",
+                    "required": true
+                }
+            ]
         }
     ]
 }
